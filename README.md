@@ -2,10 +2,11 @@
 
 A repository documenting performance engineering experiments in C++.
 
-## Experiment 1: Sorting Algorithm Benchmark
+---
 
-Comparing the real-world performance of three sorting algorithms 
-on random integer arrays.
+## Experiment 1: Sorting Algorithm Benchmark (C-style arrays)
+
+Comparing the real-world performance of three sorting algorithms on random integer arrays using C-style arrays.
 
 ### Results
 
@@ -17,11 +18,29 @@ on random integer arrays.
 
 ### Key Insight
 
-Array size increased 10x. Bubble sort got 125x slower. 
-std::sort got 11x slower. This is O(n²) vs O(n log n) 
-made visible through measurement.
+Array size increased 10x. Bubble sort got 125x slower. std::sort got 11x slower. This is O(n²) vs O(n log n) made visible through measurement.
 
-### Environment
+---
+
+## Experiment 2: Sorting Algorithm Benchmark (std::vector)
+
+Same experiment rebuilt using std::vector with reserve, a BenchmarkResult struct, and a SortAlgorithm enum class.
+
+### Results
+
+| Algorithm      | 100,000 elements |
+|----------------|------------------|
+| Bubble Sort    | 28,287ms         |
+| Selection Sort | 14,922ms         |
+| std::sort      | 5ms              |
+
+### Key Insight
+
+Switching from C-style arrays to std::vector with reserve produced no meaningful performance difference — the algorithm is the bottleneck, not the container.
+
+---
+
+## Environment
 - Compiler: g++ with -std=c++20
 - OS: Windows
 - CPU: AMD Ryzen 5 Pro
