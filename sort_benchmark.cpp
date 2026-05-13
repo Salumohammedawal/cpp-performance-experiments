@@ -109,7 +109,6 @@ int main() {
           << std::setw(12) << r.time << '\n';
     }
     
-    
     return 0;
 
 }
