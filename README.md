@@ -57,6 +57,23 @@ Passing by const reference is roughly 5,000x faster than passing by value for a 
 
 ---
 
+## Experiment 4: String vs Integer Benchmark
+
+Comparing the cost of 1 million integer additions versus 1 million string concatenations.
+
+### Results
+
+| Operation               | Time      |
+|-------------------------|-----------|
+| Integer addition        | 2ms       |
+| String concatenation    | 47,624ms  |
+
+### Key Insight
+
+String concatenation in a loop is 23,000x slower than integer addition. Each concatenation allocates a new string, copies all previous characters, and frees the old one. By iteration 1,000,000 the string is 1,000,000 characters long — this is O(n²) memory work hidden inside what looks like a simple loop. Never concatenate strings carelessly in performance-critical code.
+
+---
+
 ## Environment
 - Compiler: g++ with -std=c++20 and -O2
 - OS: Windows
