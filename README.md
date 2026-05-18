@@ -40,7 +40,24 @@ Switching from C-style arrays to std::vector with reserve produced no meaningful
 
 ---
 
+## Experiment 3: Copy Cost Benchmark
+
+Comparing the cost of passing a 100,000 element vector by value versus by const reference, called 10,000 times each.
+
+### Results
+
+| Method              | Total Time (10,000 calls) |
+|---------------------|---------------------------|
+| Pass by value       | 158ms                     |
+| Pass by const ref   | 0.031ms                   |
+
+### Key Insight
+
+Passing by const reference is roughly 5,000x faster than passing by value for a large vector. The copy is the cost — not the computation. Every function that takes a large object by value is silently paying this price on every call.
+
+---
+
 ## Environment
-- Compiler: g++ with -std=c++20
+- Compiler: g++ with -std=c++20 and -O2
 - OS: Windows
 - CPU: AMD Ryzen 5 Pro
